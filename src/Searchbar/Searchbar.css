@@ -1,0 +1,9 @@
+.ui.icon.input{
+  width: 100%;
+}
+.results.transition.visible{
+  width: 100% !important;
+}
+.ui.medium.container{
+  width: 400px;
+}
