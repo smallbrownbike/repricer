@@ -6,7 +6,6 @@ import tinytime from 'tinytime';
 import queryString from 'query-string';
 import _ from 'lodash';
 import App from './Main/App';
-import Item from './Item/Item'
 
 let source = []
 const template = tinytime('{MM} {DD} {YYYY}');
