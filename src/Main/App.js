@@ -74,11 +74,9 @@ class App extends React.Component {
           })}
         </div>
         <footer>
-          <a href='https://github.com/smallbrownbike'>
-            <div className="sm ui center aligned container">
-              eli kinsey 2017 <i class="github icon"></i>
-            </div>
-          </a>
+          <div className="sm ui center aligned container">
+            eli kinsey 2017 <a href='https://github.com/smallbrownbike'><i class="github icon"></i></a>
+          </div>
         </footer>
       </div>
     );
