@@ -38,7 +38,6 @@ class Graph extends React.Component{
                 <h5>Quantity: <span className='light'>{this.props.data.qoh}</span></h5>
                 <h5>Location: <span className='light'>{this.props.data.loc}</span></h5>
                 <h5>UPC: <span className='light'>{this.props.data.upc}</span></h5>
-                <h5>Barcode: <span className='light'>{this.props.data.barcode}</span></h5>
               </Grid.Column>
               <Grid.Column width={13}>
                 

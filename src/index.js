@@ -24,8 +24,7 @@ for(var i=0; i < 50; i++){
       loc: 'sherv' + Math.round(Math.random() * (15 - 1) + 1),
       image: 'https://react.semantic-ui.com/assets/images/wireframe/image.png',
       qoh: Math.round(Math.random() * (50 - 1) + 1),
-      upc: faker.finance.bic(),
-      barcode: Math.round(Math.random() * (1000000000000 - 1) + 1),
+      upc: Math.round(Math.random() * (999999999999)),
       prices: {
         amazon: faker.finance.amount(),
         ebay: faker.finance.amount(),
