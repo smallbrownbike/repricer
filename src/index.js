@@ -9,7 +9,7 @@ import App from './Main/App';
 
 let source = []
 const template = tinytime('{MM} {DD} {YYYY}');
-for(var i=0; i < 200; i++){
+for(var i=0; i < 214; i++){
 
   let randomDate = faker.date.past(),
       UNIX = Math.round(randomDate.getTime() / 1000),

@@ -12,7 +12,16 @@ class App extends React.Component {
     this.resetComponent()
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: this.props.source, value: '' })
+  resetComponent = () => {
+    let pages = Math.ceil(this.props.source.length / 50),
+        source = [];
+
+    for(var i=0; i < pages; i++){
+      source.push(this.props.source.slice(i * 50, 50 * (i + 1)))
+    }
+    
+    this.setState({ isLoading: false, results: source, value: '', page: 0})
+  }
 
   handleResultSelect = (e, { result }) => {console.log(result)}
 
@@ -52,7 +61,14 @@ class App extends React.Component {
             <Icon name='search' />
           </Input>
         </div>
-        <Info source={this.state.results}/>
+        <Info source={this.state.results[this.state.page]}/>
+        <div className="ui center aligned container">
+          {this.state.results.map((page, index) => {
+            return(
+              <a className='m' href=''>{index + 1}</a>
+            )
+          })}
+        </div>
         <footer>
           <a href='https://github.com/smallbrownbike'>
             <div className="sm ui center aligned container">
