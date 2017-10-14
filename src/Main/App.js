@@ -65,7 +65,7 @@ class App extends React.Component {
         <div className="ui center aligned container">
           {this.state.results.map((page, index) => {
             return(
-              <a className='m' href=''>{index + 1}</a>
+              <span className='m link pointer'>{index + 1}</span>
             )
           })}
         </div>
