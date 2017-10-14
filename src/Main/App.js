@@ -55,8 +55,10 @@ class App extends React.Component {
   }
 
   handleNumber = (index) => {
-    window.scroll(0,0)
-    this.setState({page: index})
+    if(index !== this.state.page){
+      window.scroll(0,0)
+      this.setState({page: index})
+    }
   }
 
   render() {
