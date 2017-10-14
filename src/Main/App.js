@@ -8,19 +8,25 @@ import './Main.css';
 
 class App extends React.Component {
 
-  componentWillMount() {
-    this.resetComponent()
+  constructor(props){
+    super(props)
+    this.state = {value: ''}
   }
 
-  resetComponent = () => {
-    let pages = Math.ceil(this.props.source.length / 50),
-        source = [];
+  componentWillMount() {
+    this.resetComponent(this.props.source)
+  }
+
+  resetComponent = (source) => {
+    this.setState({isLoading: false})
+    source = source ? source : this.props.source
+    let pages =  Math.ceil(source.length / 50),
+        results = [];
 
     for(var i=0; i < pages; i++){
-      source.push(this.props.source.slice(i * 50, 50 * (i + 1)))
+      results.push(source.slice(i * 50, 50 * (i + 1)))
     }
-    
-    this.setState({ isLoading: false, results: source, value: '', page: 0})
+    this.setState({results: results, page: 0})
   }
 
   handleResultSelect = (e, { result }) => {console.log(result)}
@@ -34,14 +40,12 @@ class App extends React.Component {
         const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
         const isMatch = result => re.test(result.title) || re.test(result.description) || re.test(result.loc)
 
-        this.setState({
-            isLoading: false,
-            results: _.filter(this.props.source, isMatch),
-        })
+        this.resetComponent(_.filter(this.props.source, isMatch))
     }, 500)
   }
 
   handleNumber = (index) => {
+    window.scroll(0,0)
     this.setState({page: index})
   }
 
@@ -65,7 +69,7 @@ class App extends React.Component {
             <Icon name='search' />
           </Input>
         </div>
-        <Info source={this.state.results[this.state.page]}/>
+        <Info source={this.state.results.length > 0 ? this.state.results[this.state.page] : this.state.results}/>
         <div className="ui center aligned container">
           {this.state.results.map((page, index) => {
             return(
