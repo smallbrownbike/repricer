@@ -5,7 +5,6 @@ import faker from 'faker';
 import tinytime from 'tinytime';
 import queryString from 'query-string';
 import _ from 'lodash';
-import './index.css';
 import App from './Main/App';
 import Item from './Item/Item'
 
