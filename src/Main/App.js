@@ -41,6 +41,10 @@ class App extends React.Component {
     }, 500)
   }
 
+  handleNumber = (index) => {
+    this.setState({page: index})
+  }
+
   render() {
     return (
       <div className="mt ui container">
@@ -65,7 +69,7 @@ class App extends React.Component {
         <div className="ui center aligned container">
           {this.state.results.map((page, index) => {
             return(
-              <span className='m link pointer'>{index + 1}</span>
+              <span onClick={() => {this.handleNumber(index)}} className={this.state.page === index ? 'm bold' : 'm link pointer'}>{index + 1}</span>
             )
           })}
         </div>
