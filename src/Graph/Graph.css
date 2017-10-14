@@ -1,0 +1,40 @@
+.mb{
+  margin-bottom: 1em !important;
+}
+.mlr{
+  margin: .3em !important;
+}
+.inline{
+  float: right;
+  display: inline !important;
+}
+.pointer{
+  cursor: pointer;
+}
+.link{
+  color: #4183C4;
+}
+h5{
+  margin: 0.5em !important;
+}
+.inline{
+  display: inline-block;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.light{
+  font-weight: lighter !important;
+}
+.mt.inline{
+  width: 100%;
+}
+.bg-white{
+  background-color: white;
+}
+.clr-black{
+  color: black;
+}
