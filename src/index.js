@@ -41,20 +41,21 @@ for(var i=0; i < 214; i++){
             { date: 'Jan 11 2016', price: 98.53 },
             { date: 'Jan 12 2016', price: 99.96 }
           ],
-        walmart: [
-          { date: 'Oct 05 2016', price: 113.05 },
-          { date: 'Oct 06 2016', price: 113.89 },
-          { date: 'Oct 07 2016', price: 114.06 },
-          { date: 'Oct 10 2016', price: 116.05 },
-          { date: 'Oct 11 2016', price: 116.3 },
-          { date: 'Oct 12 2016', price: 117.34 },
-          { date: 'Oct 13 2016', price: 116.98 },
-          { date: 'Oct 14 2016', price: 117.63 },
-          { date: 'Oct 17 2016', price: 117.55 },
-          { date: 'Oct 18 2016', price: 117.47 },
-          { date: 'Oct 19 2016', price: 117.12 },
-          { date: 'Oct 20 2016', price: 117.06 }
-        ],
+        walmart: 
+          [
+            { date: 'Oct 05 2016', price: 113.05 },
+            { date: 'Oct 06 2016', price: 113.89 },
+            { date: 'Oct 07 2016', price: 114.06 },
+            { date: 'Oct 10 2016', price: 116.05 },
+            { date: 'Oct 11 2016', price: 116.3 },
+            { date: 'Oct 12 2016', price: 117.34 },
+            { date: 'Oct 13 2016', price: 116.98 },
+            { date: 'Oct 14 2016', price: 117.63 },
+            { date: 'Oct 17 2016', price: 117.55 },
+            { date: 'Oct 18 2016', price: 117.47 },
+            { date: 'Oct 19 2016', price: 117.12 },
+            { date: 'Oct 20 2016', price: 117.06 }
+          ],
         ebay: 
           [
             { date: 'Jun 02 2016', price: 97.72 },
