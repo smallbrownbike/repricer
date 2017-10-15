@@ -50,8 +50,6 @@ class App extends React.Component {
     this.setState({results: results, totalPages: pages, isLoading: false, page: search && search <= pages ? parseInt(search) - 1: 0})
   }
 
-  handleResultSelect = (e, { result }) => {console.log(result)}
-
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value })
 
@@ -71,10 +69,6 @@ class App extends React.Component {
     this.setState({order: order})
   }
 
-  handleNumber = () => {
-    console.log('number')
-  }
-
   handleNext = () => {
     this.setState({page: this.state.page + 1})
   }
@@ -91,7 +85,7 @@ class App extends React.Component {
         <div className="fr inline">
           <h5 className='pt'>
             <Link to={{search: '?page=' + (this.state.page)}} onClick={() => {this.handlePrevious()}} className='light link pointer'>{this.state.page + 1 > 1 ? '<< ' : ''}</Link>
-            <span onClick={() => {this.handleNumber()}}>{this.state.page + 1}</span>
+            <span>{this.state.page + 1}</span>
             <Link to={{search: '?page=' + (this.state.page + 2)}} onClick={() => {this.handleNext()}} className='light link pointer'>{this.state.page + 1 < this.state.totalPages ? ' >>' : ''}</Link>
           </h5>
         </div>
