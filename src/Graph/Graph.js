@@ -54,7 +54,7 @@ class Graph extends React.Component{
                 
                 <div className="w100 inline">
                   <ResponsiveContainer height={400}>
-                    <LineChart margin={{top: 60, right: 30, left: -15}} data={this.state.data}>
+                    <LineChart margin={{top: 60, right: 30}} data={this.state.data}>
                       <XAxis dataKey="date" />
                       <YAxis domain={['auto', 'auto']} />
                       <Tooltip />
