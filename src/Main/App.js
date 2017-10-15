@@ -54,7 +54,10 @@ class App extends React.Component {
     this.setState({ isLoading: true, value })
 
     setTimeout(() => {
-        if (this.state.value.length < 1) return this.resetComponent()
+        if (this.state.value.length < 1){
+          this.props.history.push('?page=1')
+          return this.resetComponent()
+        } 
 
         const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
         const isMatch = result => re.test(result.title) || re.test(result.description) || re.test(result.loc)
