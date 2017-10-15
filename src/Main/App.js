@@ -15,9 +15,36 @@ class App extends React.Component {
   constructor(props){
     super(props)
 
+    
+    const source = this.resetDataSize(200),
+          pages = Math.ceil(source.length / 50),
+          search = parseInt(queryString.parse(window.location.search).page);
+          
+
+    if(!search){
+      props.history.push('?page=1')
+    } else if(search > pages){
+      props.history.push('?page=' + pages)
+    }
+
+    this.state = {amount: 200, value: '', order: 'asc', source: _.orderBy(source, ['time'], ['asc'])}
+  }
+
+  componentWillReceiveProps(nextProps){
+    const search = queryString.parse(window.location.search).page;
+    if(nextProps.history.action === 'POP'){
+      this.setState({page: search ? parseInt(search) - 1 : 0})
+    }
+  }
+
+  componentWillMount() {
+    this.resetComponent(this.state.source)
+  }
+
+  resetDataSize = (amount) => {
     let source = []
     const template = tinytime('{MM} {DD} {YYYY}');
-    for(var i=0; i < 200; i++){
+    for(var i=0; i < amount; i++){
     
       let randomDate = faker.date.past(),
           UNIX = Math.round(randomDate.getTime() / 1000),
@@ -101,27 +128,7 @@ class App extends React.Component {
       )
     }
 
-    const pages = Math.ceil(source.length / 50),
-          search = parseInt(queryString.parse(window.location.search).page);
-
-    if(!search){
-      props.history.push('?page=1')
-    } else if(search > pages){
-      props.history.push('?page=' + pages)
-    }
-
-    this.state = {value: '', order: 'asc', source: _.orderBy(source, ['time'], ['asc'])}
-  }
-
-  componentWillReceiveProps(nextProps){
-    const search = queryString.parse(window.location.search).page;
-    if(nextProps.history.action === 'POP'){
-      this.setState({page: search ? parseInt(search) - 1 : 0})
-    }
-  }
-
-  componentWillMount() {
-    this.resetComponent(this.state.source)
+    return source;
   }
 
   resetComponent = (source) => {
@@ -136,7 +143,7 @@ class App extends React.Component {
       results.push(source.slice(i * 50, 50 * (i + 1)))
     }
 
-    this.setState({results: results, totalPages: pages, isLoading: false, page: search && search <= pages ? parseInt(search) - 1: 0})
+    this.setState({error: false, results: results, totalPages: pages, isLoading: false, page: search && search <= pages ? parseInt(search) - 1: 0})
   }
 
   handleSearchChange = (e, { value }) => {
@@ -164,9 +171,34 @@ class App extends React.Component {
     this.setState({page: this.state.page - 1})
   }
 
+  handleUpdate = (e) => {
+    let value = e.target.value;
+    this.setState({amount: value})
+    setTimeout(() => {
+      value = parseInt(value);
+      if(value > 0){
+        if(value <= 2000){
+          this.resetComponent(this.resetDataSize(value));
+        } else {
+          this.setState({error: true})
+        }
+      } else {
+        this.setState({amount: 200})
+        this.resetComponent();
+      }
+    }, 500)
+  }
+
   render() {
     return (
       <div className="mt ui container">
+        <div className="floating">
+          <div className={this.state.error ? 'ui right labeled input error' : 'ui right labeled input'}>
+            <input id={this.state.error ? 'err' : ''} onChange={this.handleUpdate} value={this.state.amount} />
+            <div className='ui label'>Items</div>
+          </div>
+          {/* <span className={this.state.error ? 'block mts bold error' : 'block mts bold'}>{this.state.error ? 'Please enter a value less than 2000' : 'Number of items to show'}</span> */}
+        </div>
         <h1 className='fl inline'>Repricer</h1>
 
         <div className="fr inline">

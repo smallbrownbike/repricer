@@ -1,9 +1,8 @@
 .mt{
   margin-top: 1em;
 }
-.dropdown{
+.mts{
   margin-top: .5em;
-  color:rgba(39, 39, 39, 0.88)
 }
 .sm{
   font-size: .9em;
@@ -26,4 +25,21 @@ footer{
 }
 h1{
   margin: 0.3em 0;
+}
+.floating{
+  position: absolute;
+  left: 0;
+  margin: 1em 0 0 2em;
+}
+.block{
+  display: block;
+}
+.bold{
+  font-weight: bold;
+}
+/* .ui[class*="right labeled"].input input:focus{
+  border-right-color: #E0B4B4 !important;
+} */
+#err{
+  border-right-color: #E0B4B4 !important;
 }
