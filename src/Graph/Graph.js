@@ -52,9 +52,9 @@ class Graph extends React.Component{
                     <Button active={this.state.channel === 'newegg' ? true : false} inverted onClick={() => {this.handleClick('newegg')}} color='purple'>Newegg</Button>
                   </div>
                 
-                <div className="mt inline">
+                <div className="w100 inline">
                   <ResponsiveContainer height={400}>
-                    <LineChart data={this.state.data}>
+                    <LineChart margin={{top: 60, right: 30, left: -15}} data={this.state.data}>
                       <XAxis dataKey="date" />
                       <YAxis domain={['auto', 'auto']} />
                       <Tooltip />
