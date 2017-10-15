@@ -178,14 +178,17 @@ class App extends React.Component {
       value = parseInt(value);
       if(value > 0){
         if(value <= 2000){
-          this.resetComponent(this.resetDataSize(value));
+          this.setState({source: this.resetDataSize(value)})
+          this.resetComponent();
         } else {
           this.setState({error: true})
         }
       } else {
-        this.setState({amount: 200})
+        this.setState({source: this.resetDataSize(200), amount: 200})
         this.resetComponent();
       }
+      this.setState({page: 0, value: ''})
+      this.props.history.push('?page=1')
     }, 500)
   }
 
