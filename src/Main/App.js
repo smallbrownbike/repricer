@@ -27,7 +27,7 @@ class App extends React.Component {
       props.history.push('?page=' + pages)
     }
 
-    this.state = {amount: 200, value: '', order: 'asc', source: _.orderBy(source, ['time'], ['asc'])}
+    this.state = {amount: 200, value: '', order: 'asc', source: source}
   }
 
   componentWillReceiveProps(nextProps){
@@ -131,8 +131,10 @@ class App extends React.Component {
     return source;
   }
 
-  resetComponent = (source) => {
+  resetComponent = (source, order) => {
+    order = order ? order : 'asc';
     source = source ? source : this.state.source
+    source = _.orderBy(source, ['time'], [order])
 
     const pages =  Math.ceil(source.length / 50),
           search = queryString.parse(window.location.search).page;
@@ -143,7 +145,7 @@ class App extends React.Component {
       results.push(source.slice(i * 50, 50 * (i + 1)))
     }
 
-    this.setState({error: false, results: results, totalPages: pages, isLoading: false, page: search && search <= pages ? parseInt(search) - 1: 0})
+    this.setState({order: order, error: false, results: results, totalPages: pages, isLoading: false, page: search && search <= pages ? parseInt(search) - 1: 0})
   }
 
   handleSearchChange = (e, { value }) => {
@@ -158,9 +160,9 @@ class App extends React.Component {
   }
 
   handleClick = () => {
-    const order = this.state.order === 'asc' ? 'desc' : 'asc';
-    this.resetComponent(_.orderBy([].concat.apply([], this.state.results), ['time'], [order]))
-    this.setState({order: order})
+    this.setState({page: 0})
+    this.props.history.push('?page=1')
+    this.resetComponent([].concat.apply([], this.state.results), this.state.order === 'asc' ? 'desc' : 'asc')
   }
 
   handleNext = () => {
