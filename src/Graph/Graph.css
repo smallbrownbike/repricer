@@ -12,6 +12,7 @@
   cursor: pointer;
 }
 .link{
+  user-select: none;
   color: #4183C4;
 }
 h5{

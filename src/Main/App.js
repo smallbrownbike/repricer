@@ -3,6 +3,8 @@ import Info from '../Info/Info';
 import Searchbar from '../Searchbar/Searchbar';
 import Graph from '../Graph/Graph';
 import { Icon, Dropdown, Search, Input, Table } from 'semantic-ui-react';
+import { Link, Redirect, Router } from 'react-router-dom';
+import queryString from 'query-string';
 import _ from 'lodash';
 import './Main.css';
 
@@ -10,7 +12,23 @@ class App extends React.Component {
 
   constructor(props){
     super(props)
+    const pages = Math.ceil(this.props.source.length / 50),
+          search = parseInt(queryString.parse(window.location.search).page);
+
+    if(!search){
+      props.history.push('?page=1')
+    } else if(search > pages){
+      props.history.push('?page=' + pages)
+    }
+
     this.state = {value: '', order: 'asc'}
+  }
+
+  componentWillReceiveProps(nextProps){
+    const search = queryString.parse(window.location.search).page;
+    if(nextProps.history.action === 'POP'){
+      this.setState({page: search ? parseInt(search) - 1 : 0})
+    }
   }
 
   componentWillMount() {
@@ -18,19 +36,18 @@ class App extends React.Component {
   }
 
   resetComponent = (source) => {
-    
-    this.setState({isLoading: false})
-
     source = source ? source : this.props.source
 
-    const pages =  Math.ceil(source.length / 50);
+    const pages =  Math.ceil(source.length / 50),
+          search = queryString.parse(window.location.search).page;
 
     let results = [];
 
     for(var i=0; i < pages; i++){
       results.push(source.slice(i * 50, 50 * (i + 1)))
     }
-    this.setState({results: results, page: 0})
+
+    this.setState({results: results, totalPages: pages, isLoading: false, page: search && search <= pages ? parseInt(search) - 1: 0})
   }
 
   handleResultSelect = (e, { result }) => {console.log(result)}
@@ -54,17 +71,30 @@ class App extends React.Component {
     this.setState({order: order})
   }
 
-  handleNumber = (index) => {
-    if(index !== this.state.page){
-      window.scroll(0,0)
-      this.setState({page: index})
-    }
+  handleNumber = () => {
+    console.log('number')
+  }
+
+  handleNext = () => {
+    this.setState({page: this.state.page + 1})
+  }
+
+  handlePrevious = () => {  
+    this.setState({page: this.state.page - 1})
   }
 
   render() {
     return (
       <div className="mt ui container">
-        <h1>Repricer</h1>
+        <h1 className='fl inline'>Repricer</h1>
+        
+        <div className="fr inline">
+          <h5 className='pt'>
+            <Link to={{search: '?page=' + (this.state.page)}} onClick={() => {this.handlePrevious()}} className='light link pointer'>{this.state.page + 1 > 1 ? '<< ' : ''}</Link>
+            <span onClick={() => {this.handleNumber()}}>{this.state.page + 1}</span>
+            <Link to={{search: '?page=' + (this.state.page + 2)}} onClick={() => {this.handleNext()}} className='light link pointer'>{this.state.page + 1 < this.state.totalPages ? ' >>' : ''}</Link>
+          </h5>
+        </div>
         <div className="">
           <Input
               icon
@@ -94,13 +124,6 @@ class App extends React.Component {
           <Info source={this.state.results.length > 0 ? this.state.results[this.state.page] : this.state.results}/>
 
         </Table>
-        <div className="ui center aligned container">
-          {this.state.results.map((page, index) => {
-            return(
-              <span onClick={() => {this.handleNumber(index)}} className={this.state.page === index ? 'm bold' : 'm link pointer'}>{index + 1}</span>
-            )
-          })}
-        </div>
         <footer>
           <div className="sm ui center aligned container">
             eli kinsey 2017 <a href='https://github.com/smallbrownbike'><i class="github icon"></i></a>
