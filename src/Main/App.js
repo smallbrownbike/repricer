@@ -84,7 +84,7 @@ class App extends React.Component {
           <h5 className='pt'>
             <Link to={{search: '?page=' + (this.state.page)}} onClick={() => {this.handlePrevious()}} className='light link select-none pointer'>{this.state.page + 1 > 1 ? '<< ' : ''}</Link>
             <span className='select-none'>{this.state.page + 1}</span>
-            <Link to={{search: '?page=' + (this.state.page + 2)}} onClick={() => {this.handleNext()}} className='light link select-none pointer'>{this.state.page + 1 < this.state.totalPages ? ' >>' : ''}</Link>
+            <Link to={{search: '?page=' + (this.state.page + 2)}} onClick={() => {this.handleNext()}} className='next inline light link select-none pointer'>{this.state.page + 1 < this.state.totalPages ? ' >>' : ''}</Link>
           </h5>
         </div>
         <div className="">
