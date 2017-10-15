@@ -43,3 +43,6 @@ h1{
 #err{
   border-right-color: #E0B4B4 !important;
 }
+.ui.right.labeled.input{
+  width: 125px;
+}
